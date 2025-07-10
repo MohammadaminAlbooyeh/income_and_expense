@@ -1,0 +1,44 @@
+/* CounterBoxes.css */
+.counter-box {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  padding: 2rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 120px;
+}
+.counter-value {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: #1976d2;
+}
+.counter-actions {
+  display: flex;
+  gap: 1rem;
+}
+.plus-btn, .minus-btn {
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.plus-btn {
+  background: #43a047;
+}
+.plus-btn:hover {
+  background: #388e3c;
+}
+.minus-btn {
+  background: #e53935;
+}
+.minus-btn:hover {
+  background: #b71c1c;
+}
