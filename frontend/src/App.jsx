@@ -1,5 +1,7 @@
 import * as React from 'react';
+import OverviewBoxes from './OverviewBoxes';
 import { Box, CssBaseline, Drawer, AppBar, Toolbar, Typography, List, ListItem, ListItemIcon, ListItemText, Divider, IconButton, Grid, Paper } from '@mui/material';
+import { Link, useLocation } from 'react-router-dom';
 import MenuIcon from '@mui/icons-material/Menu';
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 import CreditCardIcon from '@mui/icons-material/CreditCard';
@@ -12,17 +14,16 @@ import HelpIcon from '@mui/icons-material/Help';
 const drawerWidth = 240;
 
 const menuItems = [
-  { text: 'Overview', icon: <PieChartIcon /> },
-  { text: 'Transactions', icon: <BarChartIcon /> },
-  { text: 'Accounts', icon: <AccountBalanceWalletIcon /> },
-  { text: 'Credit cards', icon: <CreditCardIcon /> },
-  { text: 'Calendar', icon: <CalendarMonthIcon /> },
-  { text: 'Settings', icon: <SettingsIcon /> },
-  { text: 'Help', icon: <HelpIcon /> },
+  { text: 'Overview', icon: <PieChartIcon />, path: '/' },
+  { text: 'Transactions', icon: <BarChartIcon />, path: '/transactions' },
+  { text: 'Accounts', icon: <AccountBalanceWalletIcon />, path: '/accounts' },
+  // سایر صفحات بعداً اضافه می‌شوند
 ];
+
 
 function App() {
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const location = useLocation();
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -37,8 +38,14 @@ function App() {
       </Toolbar>
       <Divider />
       <List>
-        {menuItems.map((item, index) => (
-          <ListItem button key={item.text}>
+        {menuItems.map((item) => (
+          <ListItem
+            button
+            key={item.text}
+            component={Link}
+            to={item.path}
+            selected={location.pathname === item.path}
+          >
             <ListItemIcon>{item.icon}</ListItemIcon>
             <ListItemText primary={item.text} />
           </ListItem>
@@ -78,6 +85,7 @@ function App() {
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, bgcolor: '#f5f5f5', p: 3, minHeight: '100vh' }}>
         <Toolbar />
+        <OverviewBoxes />
         <Grid container spacing={2}>
           <Grid item xs={12} md={4}>
             <Paper sx={{ p: 2, height: 140 }}>Summary (Sample)</Paper>
