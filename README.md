@@ -1,36 +1,21 @@
-# پروژه مدیریت درآمد و هزینه
+# Income and Expense Management Project
 
-این پروژه شامل دو بخش است:
-- **بک‌اند:** Django + Django REST Framework (دیتابیس SQLite)
-- **فرانت‌اند:** React + Vite
-- **اجرای همزمان:** با Docker و docker-compose
+This project consists of two main parts:
 
-## راه‌اندازی سریع
+- **Backend:** Django + Django REST Framework (SQLite database)
+- **Frontend:** React + Vite
+- **Simultaneous Execution:** Managed via Docker and docker-compose
 
-۱. نصب وابستگی‌های بک‌اند:
+---
+
+## 🚀 Quick Setup
+
+Follow these steps to get started:
+
+### 1️⃣ Install Backend Dependencies
+
 ```bash
 cd backend
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
-```
-
-۲. نصب وابستگی‌های فرانت‌اند:
-```bash
-cd frontend
-npm install
-```
-
-۳. اجرای پروژه با Docker:
-```bash
-docker-compose up --build
-```
-
-## ساختار پوشه‌ها
-- backend: کدهای Django
-- frontend: کدهای React
-- docker-compose.yml: اجرای همزمان
-
----
-
-فونت فارسی و ظاهر شبیه تصویر نمونه رعایت خواهد شد.
