@@ -1,21 +1,38 @@
 # Income and Expense Management Project
 
-This project consists of two main parts:
-
+This project includes two parts:
 - **Backend:** Django + Django REST Framework (SQLite database)
 - **Frontend:** React + Vite
-- **Simultaneous Execution:** Managed via Docker and docker-compose
+- **Simultaneous Execution:** with Docker and docker-compose
+
+## Quick Setup
+
+1. Install backend dependencies:
+
+    ```bash
+    cd backend
+    python3 -m venv venv
+    source venv/bin/activate
+    pip install -r requirements.txt
+    ```
+
+2. Install frontend dependencies:
+
+    ```bash
+    cd frontend
+    npm install
+    ```
+
+3. Run the project with Docker:
+
+    ```bash
+    docker-compose up --build
+    ```
+
+## Folder Structure
+- backend: Django code
+- frontend: React code
+- docker-compose.yml: Simultaneous execution
 
 ---
 
-## 🚀 Quick Setup
-
-Follow these steps to get started:
-
-### 1️⃣ Install Backend Dependencies
-
-```bash
-cd backend
-python3 -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt
