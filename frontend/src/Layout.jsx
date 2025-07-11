@@ -1,15 +1,12 @@
-import * as React from 'react';
-import OverviewBoxes from './OverviewBoxes';
-import { Box, CssBaseline, Drawer, AppBar, Toolbar, Typography, List, ListItem, ListItemIcon, ListItemText, Divider, IconButton, Grid, Paper } from '@mui/material';
-import { Link, useLocation } from 'react-router-dom';
+import React from 'react';
+import { Box, CssBaseline, Drawer, AppBar, Toolbar, Typography, Divider, List, ListItem, ListItemIcon, ListItemText, IconButton } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 import CreditCardIcon from '@mui/icons-material/CreditCard';
 import PieChartIcon from '@mui/icons-material/PieChart';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import BarChartIcon from '@mui/icons-material/BarChart';
-import SettingsIcon from '@mui/icons-material/Settings';
-import HelpIcon from '@mui/icons-material/Help';
+import { Link, useLocation, Outlet } from 'react-router-dom';
 
 const drawerWidth = 240;
 
@@ -22,8 +19,7 @@ const menuItems = [
   { text: 'Reports', icon: <BarChartIcon />, path: '/reports' },
 ];
 
-
-function App() {
+export default function Layout({ children, title }) {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const location = useLocation();
 
@@ -71,7 +67,7 @@ function App() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-            Overview
+            {title}
           </Typography>
         </Toolbar>
       </AppBar>
@@ -87,33 +83,8 @@ function App() {
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, bgcolor: '#f5f5f5', p: 3, minHeight: '100vh' }}>
         <Toolbar />
-        <OverviewBoxes />
-        <Grid container spacing={2}>
-          <Grid item xs={12} md={4}>
-            <Paper sx={{ p: 2, height: 140 }}>Summary (Sample)</Paper>
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <Paper sx={{ p: 2, height: 140 }}>This month (Sample)</Paper>
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <Paper sx={{ p: 2, height: 140 }}>Last month (Sample)</Paper>
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <Paper sx={{ p: 2, height: 240 }}>Accounts (Sample)</Paper>
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <Paper sx={{ p: 2, height: 240 }}>Balance Chart (Sample)</Paper>
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <Paper sx={{ p: 2, height: 240 }}>Last 7 days (Sample)</Paper>
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <Paper sx={{ p: 2, height: 240 }}>Budgets (Sample)</Paper>
-          </Grid>
-        </Grid>
+        <Outlet />
       </Box>
     </Box>
   );
 }
-
-export default App;
