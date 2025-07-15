@@ -19,8 +19,8 @@ const categories = [
   { value: 'other', label: 'Other' },
 ];
 
-export default function Transactions() {
-  const [transactions, setTransactions] = useState(initialTransactions);
+
+export default function Transactions({ transactions, setTransactions }) {
   const [filterType, setFilterType] = useState('all');
   const [filterCategory, setFilterCategory] = useState('all');
   const [newTransaction, setNewTransaction] = useState({ type: 'income', amount: '', category: '', date: '', description: '' });
@@ -124,7 +124,24 @@ export default function Transactions() {
           </Select>
         </FormControl>
       </Box>
-      {/* Transactions Table */}
+      {/* Transactions Summary Box */}
+      <Paper sx={{ p: 2, mb: 2, bgcolor: '#f1f8e9', border: '1px solid #c5e1a5' }}>
+        <Typography variant="subtitle1" sx={{ fontWeight: 'bold', mb: 1 }}>Transactions Summary</Typography>
+        {filtered.length === 0 ? (
+          <Typography variant="body2" color="text.secondary">No transactions found.</Typography>
+        ) : (
+          <Box component="ul" sx={{ pl: 2, mb: 0 }}>
+            {filtered.map(t => (
+              <li key={t.id}>
+                <span style={{ fontWeight: 500 }}>{t.type === 'income' ? 'Income' : 'Expense'}</span>
+                {` | ${categories.find(c => c.value === t.category)?.label || t.category}`}
+                {` | ${t.amount} | ${t.date}`}
+                {t.description ? ` | ${t.description}` : ''}
+              </li>
+            ))}
+          </Box>
+        )}
+      </Paper>
       <TableContainer component={Paper}>
         <Table>
           <TableHead>

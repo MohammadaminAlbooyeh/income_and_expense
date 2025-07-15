@@ -1,5 +1,7 @@
 import * as React from 'react';
 import OverviewBoxes from './OverviewBoxes';
+import Transactions from './Transactions';
+import { Routes, Route } from 'react-router-dom';
 import { Box, CssBaseline, Drawer, AppBar, Toolbar, Typography, List, ListItem, ListItemIcon, ListItemText, Divider, IconButton, Grid, Paper } from '@mui/material';
 import { Link, useLocation } from 'react-router-dom';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -23,7 +25,8 @@ const menuItems = [
 ];
 
 
-function App() {
+
+function App({ transactions, setTransactions }) {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const location = useLocation();
 
@@ -87,30 +90,35 @@ function App() {
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, bgcolor: '#f5f5f5', p: 3, minHeight: '100vh' }}>
         <Toolbar />
-        <OverviewBoxes />
-        <Grid container spacing={2}>
-          <Grid item xs={12} md={4}>
-            <Paper sx={{ p: 2, height: 140 }}>Summary (Sample)</Paper>
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <Paper sx={{ p: 2, height: 140 }}>This month (Sample)</Paper>
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <Paper sx={{ p: 2, height: 140 }}>Last month (Sample)</Paper>
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <Paper sx={{ p: 2, height: 240 }}>Accounts (Sample)</Paper>
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <Paper sx={{ p: 2, height: 240 }}>Balance Chart (Sample)</Paper>
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <Paper sx={{ p: 2, height: 240 }}>Last 7 days (Sample)</Paper>
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <Paper sx={{ p: 2, height: 240 }}>Budgets (Sample)</Paper>
-          </Grid>
-        </Grid>
+        <Routes>
+          <Route path="/" element={<>
+            <OverviewBoxes transactions={transactions} setTransactions={setTransactions} />
+            <Grid container spacing={2}>
+              <Grid item xs={12} md={4}>
+                <Paper sx={{ p: 2, height: 140 }}>Summary (Sample)</Paper>
+              </Grid>
+              <Grid item xs={12} md={4}>
+                <Paper sx={{ p: 2, height: 140 }}>This month (Sample)</Paper>
+              </Grid>
+              <Grid item xs={12} md={4}>
+                <Paper sx={{ p: 2, height: 140 }}>Last month (Sample)</Paper>
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <Paper sx={{ p: 2, height: 240 }}>Accounts (Sample)</Paper>
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <Paper sx={{ p: 2, height: 240 }}>Balance Chart (Sample)</Paper>
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <Paper sx={{ p: 2, height: 240 }}>Last 7 days (Sample)</Paper>
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <Paper sx={{ p: 2, height: 240 }}>Budgets (Sample)</Paper>
+              </Grid>
+            </Grid>
+          </>} />
+          <Route path="/transactions" element={<Transactions transactions={transactions} setTransactions={setTransactions} />} />
+        </Routes>
       </Box>
     </Box>
   );

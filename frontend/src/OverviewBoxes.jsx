@@ -3,7 +3,8 @@ import { Box, Paper, Typography, IconButton, InputBase, FormControl, InputLabel,
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 
-export default function OverviewBoxes() {
+
+export default function OverviewBoxes({ transactions, setTransactions }) {
   const [income, setIncome] = useState('');
   const [expense, setExpense] = useState('');
   const [incomeCategory, setIncomeCategory] = useState('salary');
@@ -23,11 +24,52 @@ export default function OverviewBoxes() {
     { value: 'other', label: 'Other' },
   ];
 
+
+  // مجموع درآمد
+  const totalIncome = transactions.filter(t => t.type === 'income').reduce((sum, t) => sum + Number(t.amount), 0);
+  // مجموع هزینه
+  const totalExpense = transactions.filter(t => t.type === 'expense').reduce((sum, t) => sum + Number(t.amount), 0);
+
+  // افزودن تراکنش درآمد جدید
+  const handleAddIncome = () => {
+    if (!income || isNaN(Number(income))) return;
+    setTransactions([
+      ...transactions,
+      {
+        id: Date.now(),
+        type: 'income',
+        amount: Number(income),
+        category: incomeCategory,
+        date: new Date().toISOString().slice(0, 10),
+        description: '',
+      },
+    ]);
+    setIncome('');
+  };
+
+  // افزودن تراکنش هزینه جدید
+  const handleAddExpense = () => {
+    if (!expense || isNaN(Number(expense))) return;
+    setTransactions([
+      ...transactions,
+      {
+        id: Date.now(),
+        type: 'expense',
+        amount: Number(expense),
+        category: expenseCategory,
+        date: new Date().toISOString().slice(0, 10),
+        description: '',
+      },
+    ]);
+    setExpense('');
+  };
+
   return (
     <Box sx={{ display: 'flex', gap: 3, mb: 4 }}>
       {/* Income Box */}
       <Paper elevation={3} sx={{ p: 3, minWidth: 220, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
         <Typography variant="h6" sx={{ mb: 1 }}>Income</Typography>
+        <Typography variant="subtitle1" sx={{ mb: 1 }}>Total: {totalIncome}</Typography>
         <FormControl fullWidth sx={{ mb: 1 }} size="small">
           <InputLabel id="income-category-label">Category</InputLabel>
           <Select
@@ -41,7 +83,7 @@ export default function OverviewBoxes() {
             ))}
           </Select>
         </FormControl>
-        <IconButton sx={{ bgcolor: '#4caf50', color: 'white', mb: 1, '&:hover': { bgcolor: '#388e3c' } }} size="large">
+        <IconButton sx={{ bgcolor: '#4caf50', color: 'white', mb: 1, '&:hover': { bgcolor: '#388e3c' } }} size="large" onClick={handleAddIncome}>
           <AddCircleIcon fontSize="large" />
         </IconButton>
         <InputBase
@@ -55,6 +97,7 @@ export default function OverviewBoxes() {
       {/* Expense Box */}
       <Paper elevation={3} sx={{ p: 3, minWidth: 220, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
         <Typography variant="h6" sx={{ mb: 1 }}>Expenses</Typography>
+        <Typography variant="subtitle1" sx={{ mb: 1 }}>Total: {totalExpense}</Typography>
         <FormControl fullWidth sx={{ mb: 1 }} size="small">
           <InputLabel id="expense-category-label">Category</InputLabel>
           <Select
@@ -68,7 +111,7 @@ export default function OverviewBoxes() {
             ))}
           </Select>
         </FormControl>
-        <IconButton sx={{ bgcolor: '#f44336', color: 'white', mb: 1, '&:hover': { bgcolor: '#b71c1c' } }} size="large">
+        <IconButton sx={{ bgcolor: '#f44336', color: 'white', mb: 1, '&:hover': { bgcolor: '#b71c1c' } }} size="large" onClick={handleAddExpense}>
           <RemoveCircleIcon fontSize="large" />
         </IconButton>
         <InputBase
